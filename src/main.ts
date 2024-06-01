@@ -9,11 +9,13 @@ import { isDevMode } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { features } from 'process';
 import { authFeatureKey, authReducer } from './app/auth/store/reducer';
+import { provideHttpClient } from '@angular/common/http';
 
 
 bootstrapApplication(AppComponent,
   {
     providers: [
+      provideHttpClient(),
       provideRouter(appRoutes), 
       provideStore(),  
        provideState(authFeatureKey, authReducer),

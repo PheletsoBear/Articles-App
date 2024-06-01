@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { register } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { selectIsSubmitting } from '../../store/reducer';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -22,13 +23,17 @@ export class RegisterComponent {
     password: ['', Validators.required]
   })
    isSubmitting$ = this.store.select(selectIsSubmitting)
-  constructor(private fb: FormBuilder, private store: Store){}
+  constructor(private fb: FormBuilder, private store: Store, private authService: AuthService){}
 
   onSubmit():void{
      console.log('form', this.form.getRawValue())
      const request: RegisterRequestInterface ={
        user: this.form.getRawValue()
      }
-     this.store.dispatch(register(request))
+     this.store.dispatch(register(request));
+     this.authService.register(request).subscribe(
+      result => console.log('result:', result)
+    
+     )
   }
 }
