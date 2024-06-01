@@ -3,8 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { register } from '../store/actions';
-import { RegisterRequestInterface } from '../types/registerRequest.interface';
+import { register } from '../../store/actions';
+import { RegisterRequestInterface } from '../../types/registerRequest.interface';
+import { selectIsSubmitting } from '../../store/reducer';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -20,7 +21,7 @@ export class RegisterComponent {
     email: ['', Validators.required],
     password: ['', Validators.required]
   })
-
+   isSubmitting$ = this.store.select(selectIsSubmitting)
   constructor(private fb: FormBuilder, private store: Store){}
 
   onSubmit():void{

@@ -1,16 +1,23 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-import { provideStore } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/app.routes';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { features } from 'process';
+import { authFeatureKey, authReducer } from './app/auth/store/reducer';
 
 
 bootstrapApplication(AppComponent,
   {
-    providers: [provideRouter(appRoutes), provideStore(), provideStoreDevtools({
+    providers: [
+      provideRouter(appRoutes), 
+      provideStore(),  
+       provideState(authFeatureKey, authReducer),
+       provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
