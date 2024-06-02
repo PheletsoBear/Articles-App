@@ -7,7 +7,7 @@ const initialState: authStateInterface = {
     isSubmitting: false,
 }
 
-const authFature = createFeature({
+const authFeature = createFeature({
 
     name: 'auth',
     reducer: createReducer(
@@ -16,8 +16,9 @@ const authFature = createFeature({
     ),
 })
 
+//Selector for auth
 export const { 
     name: authFeatureKey, 
     reducer: authReducer, 
     selectIsSubmitting
- } = authFature
+ } = authFeature
