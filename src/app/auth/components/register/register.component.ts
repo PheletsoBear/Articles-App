@@ -27,10 +27,18 @@ export class RegisterComponent {
 
   onSubmit():void{
      console.log('form', this.form.getRawValue())
+
+     //Mapping inserted values to the model
+
      const request: RegisterRequestInterface ={
        user: this.form.getRawValue()
      }
+      
+     //dispatching the store
+
      this.store.dispatch(register(request));
+
+     //subscribing to the services
      this.authService.register(request).subscribe(
       result => console.log('result:', result)
     
