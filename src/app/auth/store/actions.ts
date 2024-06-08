@@ -8,7 +8,7 @@ export const authActions = createActionGroup({
     events: {
         register: props<{request: RegisterRequestInterface}>(),
         'register success': props<{currentUser: CurrentUserInterface}>(),
-         'Register failure': emptyProps(),
+         'Register failure': props<{ error: string }>(),
     },
 })
 

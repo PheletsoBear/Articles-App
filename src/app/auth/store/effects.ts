@@ -7,20 +7,21 @@ import { CurrentUserInterface } from "../../shared/types/currentUser.interface";
 
 
 export const registerEffect = createEffect(
-    (actions$ = inject(Actions), authService = inject(AuthService)) => {
-      return actions$.pipe(
-        ofType(authActions.register),
-        switchMap(({request}) => {
-          return authService.register(request).pipe(
-            map((currentUser: CurrentUserInterface) => {
-              return authActions.registerSuccess({currentUser})
-            }),
-            catchError(() => {
-              return of(authActions.registerFailure())
-            })
-          )
-        })
+  (actions$ = inject(Actions), authService = inject(AuthService)) => {
+    return actions$.pipe(
+      ofType(authActions.register),
+      switchMap(({ request }) =>
+        authService.register(request).pipe(
+          map((currentUser: CurrentUserInterface) =>
+            authActions.registerSuccess({ currentUser })
+          ),
+          catchError((error) => {
+            console.error('Registration failed', error);
+            return of(authActions.registerFailure({ error: error.error }));
+          })
+        )
       )
-    },
-    {functional: true}
-  )
+    );
+  },
+  { functional: true }
+);
