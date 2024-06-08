@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { register } from '../../store/actions';
+import { authActions } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { selectIsSubmitting } from '../../store/reducer';
 import { AuthService } from '../../services/auth.service';
@@ -36,11 +36,20 @@ export class RegisterComponent {
       
      //dispatching the store
 
-     this.store.dispatch(register(request));
+     this.store.dispatch(authActions.register({ request }));
 
      //subscribing to the services
      this.authService.register(request).subscribe(
-      result => console.log('result:', result)
+      result => console.log('success result:', result),
+      error => {
+        console.error('error result:', error);
+        // Handle error (e.g., show an error message)
+        if (error.status === 500 && error.error.includes('Unique constraint failed on the fields: (`email`)')) {
+          alert('Email already exists. Please use a different email.');
+        } else {
+          alert('An error occurred during registration. Please try again later.');
+        }
+      }
     
      )
   }

@@ -10,15 +10,17 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { features } from 'process';
 import { authFeatureKey, authReducer } from './app/auth/store/reducer';
 import { provideHttpClient } from '@angular/common/http';
-
+import { provideEffects } from '@ngrx/effects';
+import * as authEffects from './app/auth/store/effects'
 
 bootstrapApplication(AppComponent,
   {
     providers: [
-      provideHttpClient(),
-      provideRouter(appRoutes), 
-      provideStore(),  
-       provideState(authFeatureKey, authReducer),
+      provideHttpClient(), //this configures httpClient into the project
+      provideRouter(appRoutes), //this configures routes into the project
+      provideStore(), //this configures the 'Store' 
+       provideState(authFeatureKey, authReducer), //this configures the states into the project
+       provideEffects(authEffects), 
        provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
