@@ -16,7 +16,7 @@ export class AuthService {
 
    register(data: RegisterRequestInterface):Observable<CurrentUserInterface>{
      const url = environment.apiUrl + '/users'
-     return this.http.post<authResponseInterface>(url,data).pipe(map((response) => response.user))
+     return this.http.post<authResponseInterface>(url,data).pipe(map((response) => response.user)) //this maps AuthResponse's user property which is of type CurrentUserInterface
    }
 
 }
