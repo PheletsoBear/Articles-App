@@ -12,6 +12,7 @@ const initialState: authStateInterface = {
 const authFeature = createFeature({
   name: 'auth', //This is the authFeaure key 
   reducer: createReducer(
+   //State transitions
     initialState,
     //handles the 'registration' action by setting isSubmitting to true and clearing errors
     on(authActions.register, (state) => ({ ...state, isSubmitting: true, error: null })),
