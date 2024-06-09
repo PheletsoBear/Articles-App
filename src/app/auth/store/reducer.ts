@@ -10,6 +10,7 @@ const initialState: authStateInterface = {
 
 //create feature for the authentication module
 const authFeature = createFeature({
+
   name: 'auth', //This is the authFeaure key 
   reducer: createReducer(
    //State transitions
@@ -24,6 +25,8 @@ const authFeature = createFeature({
     on(authActions.registerFailure, (state, action) => ({ ...state, isSubmitting: false, error: action.error }))
   ),
 });
+
+//selectors:
 
 //Export the feature's key, reducer function, and seletors
 export const { name: authFeatureKey, reducer: authReducer, selectIsSubmitting } = authFeature;

@@ -2,35 +2,21 @@ import { createAction, createActionGroup, emptyProps, props } from "@ngrx/store"
 import { RegisterRequestInterface } from "../types/registerRequest.interface";
 import { CurrentUserInterface } from "../../shared/types/currentUser.interface";
 
+//defines group of actions related to authentication
+export const authActions = createActionGroup //this used to group related actions under a common source, makes it easy to understand related actions to a specific featire or a module
+({
+    source: 'auth', //namespaces the actions under a common source. understanding that actions come from onemodule
 
-export const authActions = createActionGroup({
-    source: 'auth',
     events: {
+        //action for handling the initiation of the registration process
         register: props<{request: RegisterRequestInterface}>(),
+
+        //Action for handling the successful registration
         'register success': props<{currentUser: CurrentUserInterface}>(),
-         'Register failure': props<{ error: string }>(),
+         
+        //Action for handling a failed registration
+        'Register failure': props<{ error: string }>(),
     },
 })
 
 
-/*
-export const register = createAction(
-    '[Auth] Register', // this is a type of Action
-    
-    props<{request : RegisterRequestInterface}>() // request : RegisterRequestInterface    
-
-);
-export const registerSuccess = createAction(
-    '[Auth] RegisterSuccess', // this is a type of Action
-    
-    props<{currentUser : RegisterRequestInterface}>() // request : RegisterRequestInterface    
-
-);
-export const registerFailure = createAction(
-    '[Auth] RegisterFailure', // this is a type of Action
-    
-    emptyProps() // request : RegisterRequestInterface    
-
-);
-
-*/
